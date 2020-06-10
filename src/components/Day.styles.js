@@ -7,15 +7,9 @@ export const DayCard = styled.div`
   margin: 10px;
   box-shadow: 0 0 5px 2px #d8d8d8;
   cursor: pointer;
+
+  :hover {
+    background-color: #ffe6ff;
+  }
 `
 
-export const Head = styled.div`
-  display: flex;
-  width: 100%;
-  height: 40px;
-  background-color: purple;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  color : white;
-
-`
