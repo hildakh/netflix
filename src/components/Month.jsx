@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import {
+  MonthYearContainer,
+  MonthYearText,
   ListHead,
   Button,
   WeekDayName,
   DayCard,
-  EmptyDay,
   DayList,
+  DateText,
+  TitleInfo
 } from "./Month.styles";
 
 const Month = ({ history }) => {
@@ -108,35 +111,19 @@ const Month = ({ history }) => {
         <button>IS LOADING</button>
       ) : (
         <>
-          <div
-            className="month-name"
-            style={{
-              display: "flex",
-              width: "100%",
-              height: "40px",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <MonthYearContainer>
             <Button onClick={() => setDate(new Date(year, month - 1, day))}>
               &#10094;&#10094;
             </Button>
-            <p
-              style={{
-                width: "200px",
-                margin: "0 20px",
-                textAlign: "center",
-                lineHeight: "40px",
-              }}
-            >
-              {/* getting the name of the month from months array based on its number */}
+            <MonthYearText>
+            {/* getting the name of the month from months array based on its number */}
               {months[month]} {year}
-            </p>
+            </MonthYearText>
 
             <Button onClick={() => setDate(new Date(year, month + 1, day))}>
               &#10095;&#10095;
             </Button>
-          </div>
+          </MonthYearContainer>
 
           <ListHead>
             {weekdays.map((wday) => (
@@ -155,35 +142,27 @@ const Month = ({ history }) => {
               const formattedCompleteDate = `${year}-${formattedMonth}-${formattedDay}`;
 
               // comparing the date of the day to the fetched data to find a matching date
-              const matchingReleaseInfo = releaseData.find(
+              const matchingDateInfo = releaseData.find(
                 (item) => item.launchDate.slice(0, 10) === formattedCompleteDate
               );
 
-              console.log(matchingReleaseInfo);
+              console.log(matchingDateInfo);
 
               // conditionally rendering a day card or an empty card based on day index
               return (
                 <DayCard
                   key={formattedCompleteDate}
                   fill={day}
-                  background={matchingReleaseInfo}
+                  background={matchingDateInfo}
                 >
-                  <p
-                    style={{
-                      lineHeight: "25px",
-                    }}
-                  >
+                  <DateText>
                     {day}
-                  </p>
-                  {matchingReleaseInfo && (
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        lineHeight: "35px",
-                      }}
-                    >
-                      {matchingReleaseInfo.title}
-                    </p>
+
+                  </DateText>
+                  {matchingDateInfo && (
+                    <TitleInfo>
+                      {matchingDateInfo.title}
+                    </TitleInfo>
                   )}
                 </DayCard>
               );

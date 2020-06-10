@@ -1,5 +1,20 @@
 import styled from "styled-components";
 
+export const MonthYearContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const MonthYearText = styled.p`
+  width: 200px;
+  margin: 0 20px;
+  text-align: center;
+  line-height: 40px;
+`;
+
 export const ListHead = styled.div`
   display: flex;
   width: 100%;
@@ -11,7 +26,7 @@ export const ListHead = styled.div`
 export const Button = styled.button`
   background-color: white;
   cursor: pointer;
-`
+`;
 
 export const WeekDayName = styled.p`
   width: calc(100% * 1 / 7 - 20px);
@@ -29,11 +44,10 @@ export const DayList = styled.div`
   width: 100%;
   min-width: 1030px;
   height: 90%;
-
-`
+`;
 
 export const DayCard = styled.div`
-  width: calc(100% * 1/7 - 20px);
+  width: calc(100% * 1 / 7 - 20px);
   min-width: 127px;
   height: 13%;
   border-radius: 10px;
@@ -42,13 +56,15 @@ export const DayCard = styled.div`
   cursor: pointer;
   text-align: center;
   color: purple;
-  visibility: ${props => props.fill > 0 ? 'visible' : 'hidden'};
-  background-color: ${props => props.background ? '#ffe6ff' : 'white'}
+  visibility: ${(props) => (props.fill > 0 ? "visible" : "hidden")};
+  background-color: ${(props) => (props.background ? "#ffe6ff" : "white")};
 `;
 
-export const EmptyDay = styled.div`
-    width: calc(100% * 1/7 - 20px);
-  min-width: 127px;
-  height: 13%;
-  margin: 10px 10px 0;
-`
+export const DateText = styled.p`
+  line-height: 25px;
+`;
+
+export const TitleInfo = styled.p`
+  font-size: 14px;
+  line-height: 35px;
+`;
