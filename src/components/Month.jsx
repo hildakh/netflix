@@ -85,7 +85,6 @@ const Month = ({ history }) => {
           setIsLoading(false);
         } catch (e) {}
 
-        console.log(transformedData);
       });
   };
 
@@ -109,7 +108,7 @@ const Month = ({ history }) => {
   return (
     <>
       {isLoading ? (
-        <button>IS LOADING</button>
+        <div>IS LOADING</div>
       ) : (
         <>
           <MonthYearContainer>
@@ -146,8 +145,6 @@ const Month = ({ history }) => {
               const matchingDateInfo = releaseData.find(
                 (item) => item.launchDate.slice(0, 10) === formattedCompleteDate
               );
-
-              console.log(matchingDateInfo);
 
               // conditionally rendering a day card or an empty card based on day index
               return (
