@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { Head, Button, WeekDayName, DayCard, EmptyDay } from "./Month.styles";
 
-const Month = ({history}) => {
+const Month = ({ history }) => {
   const daysCount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const leapDaysCount = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const weekdays = [
@@ -40,14 +40,33 @@ const Month = ({history}) => {
 
   const today = new Date();
   const [date, setDate] = useState(today);
-  const [day, setDay] = useState((date.getDate() < 10 ? '0' : '') + date.getDate());
+  const [day, setDay] = useState(
+    (date.getDate() < 10 ? "0" : "") + date.getDate()
+  );
+
   const [month, setMonth] = useState(date.getMonth());
   const [year, setYear] = useState(date.getFullYear());
   const [startDay, setStartDay] = useState(getStartDayOfMonth());
+  const [releaseData, setReleaseData] = useState({});
 
   const days = isLeapYear(date.getFullYear()) ? leapDaysCount : daysCount;
 
-  const formattedMonth = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+  const formattedMonth =
+    (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1);
+
+  const fetchReleaseData = () => {
+    fetch(`https://api.jsonbin.io/b/5ee094701f9e4e57881ad408/1`)
+      .then((res) => res.json())
+      .then((data) => {
+        // Changing the format of the objects to naming conventions
+        const transformedData = data.data.map(({
+          launch_date: launchDate,
+          ...item
+        }) => ({launchDate, ...item}));
+        setReleaseData(transformedData)
+        console.log(transformedData)
+      });
+  };
 
   useEffect(() => {
     const getStartDayOfMonth = () => {
@@ -61,8 +80,12 @@ const Month = ({history}) => {
 
     setStartDay(getStartDayOfMonth(date));
 
-    history.push(`/${year}/${formattedMonth}`)
-  }, [date, formattedMonth, history, year]);
+    history.push(`/${year}/${formattedMonth}`);
+
+    fetchReleaseData();
+    console.log(releaseData, "release");
+
+  }, [date, formattedMonth, history, year, releaseData]);
 
   return (
     <>
@@ -116,13 +139,17 @@ const Month = ({history}) => {
         {/* creating an array of empty strings based on the number of days ina month */}
         {new Array(days[month] + startDay).fill(" ").map((_, index) => {
           // setting the date based on array item index, starting from 0
-          const day = index - (startDay - 1 );
-          const formattedDay = (day < 10 ? '0' : '') + day;
-          const formattedCompleteDate = `${year}-${formattedMonth}-${formattedDay}`
+          const day = index - (startDay - 1);
+          const formattedDay = (day < 10 ? "0" : "") + day;
+          const formattedCompleteDate = `${year}-${formattedMonth}-${formattedDay}`;
           // conditionally rendering a day card or an empty card based on day index
-        return day > 0 ? <DayCard
-        key={formattedCompleteDate}
-        >{formattedCompleteDate}</DayCard> : <EmptyDay />
+          return day > 0 ? (
+            <DayCard key={formattedCompleteDate}>
+              {formattedCompleteDate}
+            </DayCard>
+          ) : (
+            <EmptyDay />
+          );
         })}
       </div>
     </>
