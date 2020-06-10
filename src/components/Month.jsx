@@ -70,6 +70,7 @@ const Month = ({ history }) => {
     (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1);
 
   const fetchReleaseData = () => {
+
     fetch(`https://extendsclass.com/api/json-storage/bin/eacabfd`)
       .then((res) => res.json())
       .then((data) => {
@@ -112,7 +113,7 @@ const Month = ({ history }) => {
       ) : (
         <>
           <MonthYearContainer>
-            <Button onClick={() => setDate(new Date(year, month - 1, day))}>
+            <Button id='prev-month' onClick={() => setDate(new Date(year, month - 1, day))}>
               &#10094;&#10094;
             </Button>
             <MonthYearText>
@@ -120,7 +121,7 @@ const Month = ({ history }) => {
               {months[month]} {year}
             </MonthYearText>
 
-            <Button onClick={() => setDate(new Date(year, month + 1, day))}>
+            <Button id='next-month' onClick={() => setDate(new Date(year, month + 1, day))}>
               &#10095;&#10095;
             </Button>
           </MonthYearContainer>
@@ -160,7 +161,9 @@ const Month = ({ history }) => {
 
                   </DateText>
                   {matchingDateInfo && (
-                    <TitleInfo>
+                    <TitleInfo
+                    id={matchingDateInfo.id}
+                    >
                       {matchingDateInfo.title}
                     </TitleInfo>
                   )}

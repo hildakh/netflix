@@ -26,6 +26,11 @@ export const ListHead = styled.div`
 export const Button = styled.button`
   background-color: white;
   cursor: pointer;
+
+  :focus {
+    border: none;
+    outline: 0 none;
+  }
 `;
 
 export const WeekDayName = styled.p`
