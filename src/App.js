@@ -6,10 +6,10 @@ import Redirecter from './components/Link';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Route exact path='/:year/:month' component={Month}/>
       <Route exact path='/' component={Redirecter} />
-    </div>
+    </>
   );
 }
 
