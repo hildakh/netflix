@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Head = styled.div`
+export const ListHead = styled.div`
   display: flex;
   width: 100%;
   height: 40px;
@@ -20,6 +20,16 @@ export const WeekDayName = styled.div`
   color: white;
   text-align: center;
 `;
+
+export const DayList = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  min-width: 1030px;
+  height: 90%;
+
+`
 
 export const DayCard = styled.div`
   width: calc(100% * 1/7 - 20px);

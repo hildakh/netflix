@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <Route path='/' component={Month}/>
+      <Route exact path='/' component={Month}/>
       <Route exact path='/:year/:month' component={Month} />
     </>
   );

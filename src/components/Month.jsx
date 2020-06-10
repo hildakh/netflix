@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
-import { Head, Button, WeekDayName, DayCard, EmptyDay } from "./Month.styles";
+import { ListHead, Button, WeekDayName, DayCard, EmptyDay, DayList } from "./Month.styles";
 
 const Month = ({ history }) => {
   const daysCount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -55,7 +55,8 @@ const Month = ({ history }) => {
     (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1);
 
   const fetchReleaseData = () => {
-    fetch(`https://api.jsonbin.io/b/5ee094701f9e4e57881ad408/1`)
+    fetch(`https://extendsclass.com/api/json-storage/bin/eefabce
+    `)
       .then((res) => res.json())
       .then((data) => {
         // Changing the format of the objects to naming conventions
@@ -83,9 +84,8 @@ const Month = ({ history }) => {
     history.push(`/${year}/${formattedMonth}`);
 
     fetchReleaseData();
-    console.log(releaseData, "release");
 
-  }, [date, formattedMonth, history, year, releaseData]);
+  }, [date, formattedMonth, history, year]);
 
   return (
     <>
@@ -119,22 +119,13 @@ const Month = ({ history }) => {
         </Button>
       </div>
 
-      <Head>
+      <ListHead>
         {weekdays.map((wday) => (
           <WeekDayName key={wday}>{wday}</WeekDayName>
         ))}
-      </Head>
+      </ListHead>
 
-      <div
-        className="day-list"
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          width: "100%",
-          minWidth: "1030px",
-          height: "90%",
-        }}
+      <DayList
       >
         {/* creating an array of empty strings based on the number of days ina month */}
         {new Array(days[month] + startDay).fill(" ").map((_, index) => {
@@ -148,10 +139,10 @@ const Month = ({ history }) => {
               {formattedCompleteDate}
             </DayCard>
           ) : (
-            <EmptyDay />
+            <EmptyDay key={1}/>
           );
         })}
-      </div>
+      </DayList>
     </>
   );
 };
