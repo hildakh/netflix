@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { Head, Button, WeekDayName, DayCard, EmptyDay } from "./Month.styles";
 
-const Month = () => {
+const Month = ({history}) => {
   const daysCount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const leapDaysCount = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const weekdays = [
@@ -14,6 +14,7 @@ const Month = () => {
     "Friday",
     "Saturday",
   ];
+
   const months = [
     "January",
     "February",
@@ -51,7 +52,6 @@ const Month = () => {
   useEffect(() => {
     const getStartDayOfMonth = () => {
       // to calculate the number of blank spots before the first day of the month
-      console.log(new Date(date.getFullYear(), date.getMonth(), 1));
       return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
     };
 
@@ -61,10 +61,8 @@ const Month = () => {
 
     setStartDay(getStartDayOfMonth(date));
 
-    console.log(day, 'day')
-    console.log(month, 'month')
-    console.log(formattedMonth, 'formatted')
-  }, [date]);
+    history.push(`/${year}/${formattedMonth}`)
+  }, [date, formattedMonth, history, year]);
 
   return (
     <>
