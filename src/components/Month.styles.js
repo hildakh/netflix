@@ -13,10 +13,11 @@ export const Button = styled.button`
   cursor: pointer;
 `
 
-export const WeekDayName = styled.div`
+export const WeekDayName = styled.p`
   width: calc(100% * 1 / 7 - 20px);
   min-width: 127px;
-  margin: 10px;
+  line-height: 40px;
+  margin: 0 10px;
   color: white;
   text-align: center;
 `;
@@ -41,10 +42,8 @@ export const DayCard = styled.div`
   cursor: pointer;
   text-align: center;
   color: purple;
-
-  :hover {
-    background-color: #ffe6ff;
-  }
+  visibility: ${props => props.fill > 0 ? 'visible' : 'hidden'};
+  background-color: ${props => props.background ? '#ffe6ff' : 'white'}
 `;
 
 export const EmptyDay = styled.div`
