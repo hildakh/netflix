@@ -16,5 +16,6 @@ export const Head = styled.div`
   background-color: purple;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  color : white;
 
 `
