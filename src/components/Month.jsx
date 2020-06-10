@@ -39,12 +39,14 @@ const Month = () => {
 
   const today = new Date();
   const [date, setDate] = useState(today);
-  const [day, setDay] = useState(date.getDate());
+  const [day, setDay] = useState((date.getDate() < 10 ? '0' : '') + date.getDate());
   const [month, setMonth] = useState(date.getMonth());
   const [year, setYear] = useState(date.getFullYear());
   const [startDay, setStartDay] = useState(getStartDayOfMonth());
 
   const days = isLeapYear(date.getFullYear()) ? leapDaysCount : daysCount;
+
+  const formattedMonth = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
 
   useEffect(() => {
     const getStartDayOfMonth = () => {
@@ -58,6 +60,10 @@ const Month = () => {
     setYear(date.getFullYear());
 
     setStartDay(getStartDayOfMonth(date));
+
+    console.log(day, 'day')
+    console.log(month, 'month')
+    console.log(formattedMonth, 'formatted')
   }, [date]);
 
   return (
@@ -110,11 +116,15 @@ const Month = () => {
         }}
       >
         {/* creating an array of empty strings based on the number of days ina month */}
-        {new Array(daysCount[month] + startDay).fill(" ").map((_, index) => {
+        {new Array(days[month] + startDay).fill(" ").map((_, index) => {
           // setting the date based on array item index, starting from 0
           const day = index - (startDay - 1 );
+          const formattedDay = (day < 10 ? '0' : '') + day;
+          const formattedCompleteDate = `${year}-${formattedMonth}-${formattedDay}`
           // conditionally rendering a day card or an empty card based on day index
-        return day > 0 ? <DayCard>{day}</DayCard> : <EmptyDay />
+        return day > 0 ? <DayCard
+        key={formattedCompleteDate}
+        >{formattedCompleteDate}</DayCard> : <EmptyDay />
         })}
       </div>
     </>
