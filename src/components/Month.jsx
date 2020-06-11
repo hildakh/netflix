@@ -14,15 +14,15 @@ import {
 
 const Month = ({ history }) => {
   const daysCount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  const leapDaysCount = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const leapYearDaysCount = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const weekdays = [
-    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
+    "Monday"
   ];
 
   const months = [
@@ -64,14 +64,14 @@ const Month = ({ history }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [releaseData, setReleaseData] = useState({});
 
-  const days = isLeapYear(date.getFullYear()) ? leapDaysCount : daysCount;
+  const days = isLeapYear(date.getFullYear()) ? leapYearDaysCount : daysCount;
 
   const formattedMonth =
     (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1);
 
   const fetchReleaseData = () => {
 
-    fetch(`https://extendsclass.com/api/json-storage/bin/eacabfd`)
+    fetch(`https://extendsclass.com/api/json-storage/bin/eefabce`)
       .then((res) => res.json())
       .then((data) => {
         // Changing the format of the objects to naming conventions
@@ -133,9 +133,9 @@ const Month = ({ history }) => {
 
           <DayList>
             {/* creating an array of empty strings based on the number of days in a month */}
-            {new Array(days[month] + startDay).fill(" ").map((_, index) => {
+            {new Array(days[month]+(startDay - 1)).fill(" ").map((_, index) => {
               // setting the date based on array item index, starting from 0
-              const day = index - (startDay - 1);
+              const day = index - (startDay -2);
 
               const formattedDay = (day < 10 ? "0" : "") + day;
 
@@ -147,6 +147,7 @@ const Month = ({ history }) => {
               );
 
               // conditionally rendering a day card or an empty card based on day index
+              // Showing a day card if the index is greater than 0 and making card invisible if the index is less than 0 using fill prop
               return (
                 <DayCard
                   key={formattedCompleteDate}
