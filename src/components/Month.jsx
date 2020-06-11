@@ -16,13 +16,13 @@ const Month = ({ history }) => {
   const daysCount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const leapYearDaysCount = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const weekdays = [
+    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
-    "Monday"
   ];
 
   const months = [
@@ -53,6 +53,7 @@ const Month = ({ history }) => {
   const [date, setDate] = useState(today);
   const [day, setDay] = useState(
     // changing the format to match that of the data retrieved
+    // not needed at the moment, initially created to compare the date with release date and adding a different style to that day
     (date.getDate() < 10 ? "0" : "") + date.getDate()
   );
 
@@ -66,6 +67,7 @@ const Month = ({ history }) => {
 
   const days = isLeapYear(date.getFullYear()) ? leapYearDaysCount : daysCount;
 
+  // changing the format to match that of the data retrieved
   const formattedMonth =
     (date.getMonth() + 1 < 10 ? "0" : "") + (date.getMonth() + 1);
 
@@ -79,6 +81,7 @@ const Month = ({ history }) => {
           ({ launch_date: launchDate, ...item }) => ({ launchDate, ...item })
         );
 
+        // waiting for data to be set in state before setting isLoading to false to enable rendering of the component
         setReleaseData(transformedData);
 
         try {
@@ -100,6 +103,7 @@ const Month = ({ history }) => {
 
     setStartDay(getStartDayOfMonth(date));
 
+    // setting the route to the current year and month
     history.push(`/${year}/${formattedMonth}`);
 
     fetchReleaseData();
@@ -133,9 +137,9 @@ const Month = ({ history }) => {
 
           <DayList>
             {/* creating an array of empty strings based on the number of days in a month */}
-            {new Array(days[month]+(startDay - 1)).fill(" ").map((_, index) => {
+            {new Array(days[month]+startDay).fill(" ").map((_, index) => {
               // setting the date based on array item index, starting from 0
-              const day = index - (startDay -2);
+              const day = index - (startDay -1);
 
               const formattedDay = (day < 10 ? "0" : "") + day;
 

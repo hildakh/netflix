@@ -1,6 +1,7 @@
 describe("months", () => {
   const month = "June";
   const year = 2020;
+  // tests can be improved by working with dynamic dates
 
   beforeEach(() => {
     cy.visit("http://localhost:3000");
